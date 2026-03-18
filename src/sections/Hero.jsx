@@ -32,8 +32,8 @@ function SocialIcon({ href, label, children }) {
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative min-h-[100svh] pt-24">
-      <Container className="flex min-h-[calc(100svh-6rem)] items-center">
+    <section id="hero" className="relative min-h-[100svh] pt-20 sm:pt-24">
+      <Container className="flex items-start pt-6 sm:pt-10">
         <motion.div variants={heroStagger} initial="hidden" animate="show" className="mx-auto w-full max-w-3xl text-center">
           <motion.div variants={heroItem} className="mx-auto mb-7">
             <div className="avatar-ring mx-auto w-fit">
