@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Base ---------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-body bg-ink-950 text-white antialiased;
+  }
+
+  ::selection {
+    background: rgba(124, 58, 237, 0.35);
+  }
+}
+
+/* ---------- Layer 1: Gradient mesh background ---------- */
+.mesh-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -20;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(120, 40, 200, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(80, 20, 160, 0.25) 0%, transparent 45%),
+    radial-gradient(ellipse at 60% 80%, rgba(139, 92, 246, 0.2) 0%, transparent 40%),
+    #0a0a0f;
+  animation: meshFloat 26s ease-in-out infinite;
+}
+
+@keyframes meshFloat {
+  0% {
+    filter: saturate(180%) brightness(1);
+    transform: scale(1);
+  }
+  50% {
+    filter: saturate(210%) brightness(1.05);
+    transform: scale(1.03);
+  }
+  100% {
+    filter: saturate(180%) brightness(1);
+    transform: scale(1);
+  }
+}
+
+/* ---------- Glassmorphism utilities ---------- */
+@layer components {
+  .glass-card {
+    background: rgba(124, 58, 237, 0.08);
+    backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    border-radius: 1.25rem;
+    box-shadow: 0 8px 32px rgba(139, 92, 246, 0.15);
+    transition:
+      transform 220ms ease,
+      box-shadow 220ms ease,
+      border-color 220ms ease;
+  }
+
+  .glass-card:hover {
+    border-color: rgba(167, 139, 250, 0.5);
+    box-shadow:
+      0 8px 32px rgba(139, 92, 246, 0.22),
+      0 0 0 1px rgba(139, 92, 246, 0.15);
+    transform: translateY(-4px);
+  }
+
+  .glass-pill {
+    @apply rounded-full border border-violet-500/30 bg-violet-900/40 px-3 py-1 text-sm text-violet-200;
+    box-shadow: 0 0 0 rgba(139, 92, 246, 0);
+    transition:
+      box-shadow 200ms ease,
+      border-color 200ms ease,
+      transform 200ms ease;
+  }
+
+  .glass-pill:hover {
+    border-color: rgba(167, 139, 250, 0.55);
+    box-shadow: 0 0 18px rgba(139, 92, 246, 0.35);
+    transform: translateY(-1px);
+  }
+
+  .avatar-ring {
+    position: relative;
+    border-radius: 1.75rem;
+    padding: 10px;
+  }
+
+  .avatar-ring::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 2rem;
+    background: conic-gradient(from 180deg, rgba(124, 58, 237, 1), rgba(167, 139, 250, 1), rgba(124, 58, 237, 1));
+    filter: blur(0.5px);
+    animation: conicSpin 4s linear infinite;
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.55);
+  }
+
+  .avatar-ring > .avatar-inner {
+    position: relative;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    background: rgba(10, 10, 15, 0.55);
+    box-shadow:
+      0 18px 60px rgba(0, 0, 0, 0.35),
+      0 0 0 1px rgba(167, 139, 250, 0.18);
+  }
+
+  .avatar-inner > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+}
+
+@keyframes conicSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .mesh-bg {
+    animation: none;
+  }
+  .glass-card,
+  .glass-pill {
+    transition: none;
+  }
+}
